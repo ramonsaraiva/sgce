@@ -19,3 +19,6 @@ class Person(AbstractUser):
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['name', 'email', 'cpf', 'nacionality', 'sex', 'scholarity', 'birth']
+
+    def __unicode__(self):
+        return self.username
