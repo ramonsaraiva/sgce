@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block head %}
+<title>SGCE - Sistema de Gerenciamento e Controle de Eventos</title>
+
+<!-- CSS -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/960gs/fluid.css"> <!-- 960.gs Grid System -->
+<!-- The HTML5-Boilerplate CSS styling -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/h5bp/normalize.css"> <!-- RECOMMENDED: H5BP reset styles -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/h5bp/non-semantic.helper.classes.css"> <!-- RECOMMENDED: H5BP helpers (e.g. .clear or .hidden) -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/h5bp/print.styles.css"> <!-- OPTIONAL: H5BP print styles -->
+<!-- The special page's styling -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/special-page.css"> <!-- REQUIRED: Special page styling -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/sprites.css"> <!-- REQUIRED: Basic sprites (e.g. buttons, jGrowl) -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/typographics.css"> <!-- REQUIRED: Typographics -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/content.css"> <!-- REQUIRED: Content (we need the boxes) -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/sprite.forms.css"> <!-- SPRITE: Forms -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/ie.fixes.css"> <!-- OPTOINAL: Fixes for IE -->
+<script src="{{ STATIC_URL }}js/libs/modernizr-2.0.6.min.js"></script>
+{% endblock %}
+{% block body %}
+<body class="special_page">
+    <div class="top">
+        <div class="gradient"></div>
+        <div class="white"></div>
+        <div class="shadow"></div>
+    </div>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}js/libs/jquery-1.7.1.js"><\/script>')</script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+    <script>window.jQuery.ui || document.write('<script src="{{ STATIC_URL }}js/libs/jquery-ui-1.8.16.min.js"><\/script>')</script>
+
+    <script defer src="{{ STATIC_URL }}js/plugins.js"></script>
+    <script defer src="{{ STATIC_URL }}js/mylibs/jquery.validate.js"></script>
+    <script defer src="{{ STATIC_URL }}js/mylibs/jquery.jgrowl.js"></script>
+    <script defer src="{{ STATIC_URL }}js/mylibs/jquery.checkbox.js"></script>
+    <script defer src="{{ STATIC_URL }}js/mylibs/jquery.validate.js"></script>
+    <script defer src="{{ STATIC_URL }}js/script.js"></script> 
+    <!--[if lt IE 7 ]>
+    <script defer
+        src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script
+        defer>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+    <![endif]-->
+</body>
+{% endblock %}
