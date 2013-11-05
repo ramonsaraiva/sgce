@@ -1,9 +1,11 @@
-# Create your views here.
+# -*- coding: utf-8 -*
+
 from django.views.generic.edit import CreateView
 from person.models import Person
 from person.forms import PersonForm
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.views import login as core_login
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.shortcuts import render_to_response, redirect
+from django.template import RequestContext
 
 class PersonCreate(CreateView):
 	model = Person
@@ -12,27 +14,28 @@ class PersonCreate(CreateView):
 	success_url = '/person/login/'
 
 def login(request):
-	if request == 'POST':
+	context = {}
+
+	if request.method == 'POST':
+		auth_logout(request)
+
 		username = request.POST['username']
 		password = request.POST['password']
 
-		user = authenticate(username, password)
+		if not request.user.is_authenticated():
+			user = authenticate(username=username, password=password)
 
 		if user is not None:
 			if user.is_active:
-				if user.stype == 'P':
-					#redirects to participant page
-					return
-				elif user.stype == 'O' or user.stype == 'R':
-					#redirects to operators/receptionists page
-					return
-			else:
-				#not active error
-				return
-		else:
-			#credentials error
-			return
+				auth_login(request, user);
 
-		return
-	#just for now..
-	return core_login(request, 'person/login.html')
+				if user.stype == 'P':
+					return redirect('/sgceusr/')
+				elif user.stype == 'O' or user.stype == 'R':
+					return redirect('/sgceman/')
+			else:
+				context['error'] = 'Usuário inativo'
+		else:
+			context['error'] = 'Usuário ou senha incorretos'
+
+	return render_to_response('person/login.html', context, RequestContext(request))

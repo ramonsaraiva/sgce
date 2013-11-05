@@ -16,7 +16,7 @@
 						Usu&aacute;rio
 					</label>
 					<div>
-						{{ form.username }}
+						<input type="text" name="username" />
 					</div>
 				</div>
 				<div class="section _100">
@@ -24,14 +24,14 @@
 						Senha
 					</label>
 					<div>
-						{{ form.password }}
+						<input type="password" name="password" />
 					</div>
 				</div>
 			</div>
 			<div class="actions">
 				<div class="actions-left">
-					{% if form.errors %}
-						<font color="red">Usuário ou senha incorretos</font>
+					{% if error %}
+					<font color="red">{{ error }}</font>
 					{% endif %}
 				</div>
 				<div class="actions-right">
