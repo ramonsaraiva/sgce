@@ -9,6 +9,7 @@ class Event(models.Model):
 	address = models.CharField(verbose_name='Endereço', max_length=512)
 	maxpeople = models.DecimalField(verbose_name='Vagas',..)
 	nvouchers = models.DecimalField(verbose_name='Vouchers',..)
+	activities = models.ManyToManyField(Activity)
 
 	def __unicode__(self):
 		return self.name
