@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.generic import ListView
+from django.views.generic.detail import DetailView
 from sgce.models import Event
 
 def home(request):
@@ -9,3 +10,7 @@ def home(request):
 class EventList(ListView):
 	model = Event
 	template_name = 'sgceusr/events.html'
+
+class EventDetail(DetailView):
+	model = Event
+	template_name = 'sgceusr/event.html'
