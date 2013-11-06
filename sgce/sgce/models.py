@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*
 
 from django.db import models
-from django.template.defaultfilters import slugify
 from person.models import Person
+from sgce.unislugify import unique_slugify
 
 class Activity(models.Model):
 	name = models.CharField(verbose_name='Nome', max_length=32)
@@ -37,12 +37,18 @@ class Event(models.Model):
 	nvouchers = models.DecimalField(verbose_name='Vouchers', max_digits=5, decimal_places=0)
 	activities = models.ManyToManyField(Activity, verbose_name='Atividades', null=True, blank=True, related_name='event')
 	enrollments = models.ManyToManyField(Enrollment, verbose_name='Inscrições', null=True, blank=True, related_name='event')
-	slug = models.SlugField(max_length=100, blank=True)
+	slug = models.SlugField(max_length=100, blank=True, unique=True)
 
 	def save(self, *args, **kwargs):
 		if not self.slug:
-			self.slug = slugify(self.name)
-		super (Event, self).save(*args, **kwargs)
+			unique_slugify(self, self.name)
+		super(Event, self).save(*args, **kwargs)
 
 	def __unicode__(self):
 		return self.name
+
+	def people_preview(self):
+		return self.enrollments.all().count()
+
+	def people_confirmed(self):
+		return self.enrollments.all().count()

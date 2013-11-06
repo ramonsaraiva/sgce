@@ -84,6 +84,7 @@ INSTALLED_APPS = (
 	'person',
 	'sgceusr',
 	'sgceman',
+	'dilla',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
@@ -115,3 +116,7 @@ LOGGING = {
 AUTH_USER_MODEL = 'person.Person'
 LOGIN_URL = '/person/login/'
 LOGIN_REDIRECT_URL = '/'
+
+DILLA_USE_LOREM_IPSUM = True
+DILLA_APPS = ['sgce',]
+DILLA_SPAMLIBS = ['sgce.custom_spam']

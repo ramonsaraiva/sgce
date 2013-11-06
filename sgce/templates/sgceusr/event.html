@@ -22,13 +22,13 @@
 		<div class="content">
 			<ul class="stats-list">
 				<li>
-				<a href="#">Pessoas previstas <span>{{ object.people_confirmed }}</span></a>
+				<a href="#">Pessoas previstas <span>{{ object.people_preview }}</span></a>
 				</li>
 				<li>
-					<a href="#">Today Visits <span>875</span></a>
+				<a href="#">Pessoas confirmadas <span>{{ object.people_confirmed }}</span></a>
 				</li>
 				<li>
-					<a href="#">Comments <span>312</span></a>
+				<a href="#">Atividades propostas <span>{{ object.activities.all.count }}</span></a>
 				</li>
 				<li>
 					<a href="#">Support Tickets <span>12</span></a>
