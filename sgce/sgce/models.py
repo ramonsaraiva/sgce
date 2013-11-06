@@ -26,7 +26,7 @@ class Event(models.Model):
 	address = models.CharField(verbose_name='Endereço', max_length=512)
 	maxpeople = models.DecimalField(verbose_name='Vagas', max_digits=5, decimal_places=0)
 	nvouchers = models.DecimalField(verbose_name='Vouchers', max_digits=5, decimal_places=0)
-	activities = models.ManyToManyField(Activity)
+	activities = models.ManyToManyField(Activity, verbose_name='Atividades', null=True, blank=True, related_name='event')
 
 	def __unicode__(self):
 		return self.name

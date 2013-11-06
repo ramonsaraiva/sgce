@@ -1,0 +1,42 @@
+{% extends 'basesgce.html' %}
+{% block header-title %}SGCE - Manager{% endblock %}
+{% block header-menu %}
+<nav id="header_main">
+<div class="container_12">
+	<ul id="nav_main">
+		<li class="current">
+		<a href="#">
+			<img src="{{ STATIC_URL }}img/icons/25x25/dark/computer-imac.png" width=25 height=25 alt="">
+			Principal</a>
+		<ul>
+			<li class="current">
+			<a href="#">In&iacute;cio</a>
+			</li>
+		</ul>
+		</li>
+		<li>
+		<a href="#">
+			<img src="{{ STATIC_URL }}img/icons/25x25/dark/flag.png" width=25 height=25 alt="">
+			Eventos</a>
+		<ul>
+			<li>
+			<a href="/sgceusr/events/">Lista de eventos</a>
+			</li>
+		</ul>
+		</li>
+	</ul>
+</div>
+</nav>
+<div id="nav_sub"></div>
+{% endblock %}
+{% block sidebar-content %}
+<h2>Informa&ccedil;&otilde;es</h2>
+<p>
+	&Uacute;ltimo acesso: {{ user.last_login }}
+</p>
+<div class="divider"></div>
+{% endblock %}
+{% block content %}
+<h2 class="grid_12">In&iacute;cio</h2>
+<div class="clean"></div>
+{% endblock %}
