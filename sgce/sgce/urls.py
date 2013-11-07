@@ -5,7 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', views.SwitchView.as_view(), name='switch'),
+    url(r'^$', 'sgce.views.switch', name='switch'),
     url(r'^person/', include('person.urls')),
 	url(r'^sgceusr/', include('sgceusr.urls')),
 	#url(r'^sgceman/', include('sgceman.urls')),
