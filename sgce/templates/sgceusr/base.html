@@ -1,36 +1,37 @@
 {% extends 'basesgce.html' %}
-{% block header-title %}SGCE - Manager{% endblock %}
+{% load sgce_extras %}
+{% block header-title %}SGCE - Sistema de Gerencimento e Controle de Eventos{% endblock %}
 {% block header-menu %}
 <nav id="header_main">
 <div class="container_12">
 	<ul id="nav_main">
-		<li class="current">
+		<li class="{% active_page request '^/sgceusr/$' %}">
 		<a href="#">
-			<img src="{{ STATIC_URL }}img/icons/25x25/dark/computer-imac.png" width=25 height=25 alt="">
+			<img src="{{ STATIC_URL }}img/icons/25x25/dark/blocks---images.png" width=25 height=25 alt="">
 			Principal</a>
 		<ul>
-			<li class="current">
-			<a href="#">In&iacute;cio</a>
+			<li>
+			<a href="{% url 'home' %}">In&iacute;cio</a>
 			</li>
 		</ul>
 		</li>
-		<li>
+		<li class="{% active_page request '^/sgceusr/events/' %}">
 		<a href="#">
 			<img src="{{ STATIC_URL }}img/icons/25x25/dark/flag.png" width=25 height=25 alt="">
 			Eventos</a>
 		<ul>
-			<li>
-			<a href="/sgceusr/events/">Lista de eventos</a>
+			<li class="{% active_page request '^/sgceusr/events/$' %}">
+			<a href="{% url 'events' %}">Lista de eventos</a>
 			</li>
 		</ul>
 		</li>
-		<li>
+		<li class="{% active_page request '^/sgceusr/activities/' %}">
 		<a href="#">
 			<img src="{{ STATIC_URL }}img/icons/25x25/dark/day-calendar.png" width=25 height=25 alt="">
 			Atividades</a>
 		<ul>
-			<li>
-			<a href="/sgceusr/events/">Lista de atividades</a>
+			<li class="{% active_page request '^/sgceusr/activities/$' %}">
+			<a href="{% url 'activities' %}">Lista de atividades</a>
 			</li>
 		</ul>
 		</li>
