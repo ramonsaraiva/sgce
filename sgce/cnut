@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mysql -u root -pamokvein -e "use sgce; delete from sgce_event_enrollments;delete from sgce_event_activities;delete from sgce_event;delete from sgce_enrollment_activities;delete from sgce_enrollment;delete from sgce_activity;"
