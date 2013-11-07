@@ -9,6 +9,7 @@ def home(request):
 
 class EventList(ListView):
 	model = Event
+	queryset = Event.objects.order_by('date')
 	template_name = 'sgceusr/events.html'
 
 class EventDetail(DetailView):

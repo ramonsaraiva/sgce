@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from sgce.models import Enrollment
 
 class Person(AbstractUser):
 	MALE = 'M'
@@ -33,3 +34,12 @@ class Person(AbstractUser):
 
 	def __unicode__(self):
 		return self.username
+
+	def nof_events_enrolled(self):
+		return Enrollment.objects.filter(person=self).count()
+
+	def nof_activities_enrolled(self):
+		act = 0
+		for enrollment in Enrollment.objects.filter(person=self):
+			act += enrollment.activities.count()
+		return act

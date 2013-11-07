@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*
 
 from django.db import models
-from person.models import Person
 from sgce.unislugify import unique_slugify
 
 class Activity(models.Model):
@@ -20,7 +19,7 @@ class Activity(models.Model):
 		return self.name
 
 class Enrollment(models.Model):
-	person = models.ForeignKey(Person, verbose_name='Pessoa')
+	person = models.ForeignKey('person.Person', verbose_name='Pessoa')
 	activities = models.ManyToManyField(Activity, verbose_name='Atividades', related_name='enrollments')
 	date = models.DateTimeField(verbose_name='Data')
 

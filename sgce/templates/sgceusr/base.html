@@ -41,9 +41,17 @@
 <div id="nav_sub"></div>
 {% endblock %}
 {% block sidebar-content %}
-<h2>Informa&ccedil;&otilde;es</h2>
+<h2>Minhas informa&ccedil;&otilde;es</h2>
+<ul class="stats-list">
+	<li>
+	<a href="#">Eventos inscritos <span>{{ user.nof_events_enrolled }}</span></a>
+	</li>
+	<li>
+	<a href="#">Atividades inscritas<span>{{ user.nof_activities_enrolled }}</span></a>
+	</li>
+</ul>
+
 <p>
-	&Uacute;ltimo acesso: {{ user.last_login }}
 </p>
 <div class="divider"></div>
 {% endblock %}
