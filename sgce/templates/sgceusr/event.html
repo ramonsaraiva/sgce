@@ -9,15 +9,19 @@
 			<h3>Informações principais</h3><span></span>
 		</div>
 		<div class="content">
-			<p>Yo</p>
+			<div class="alert note"> <span class="icon"></span><strong>Descrição</strong>  {{ object.description }}</div>
+			<p><strong>Data:</strong> {{ object.date }}</p>
+			<p><strong>Local:</strong> {{ object.local }}</p>
+			<p><strong>Endereço:</strong> {{ object.address }}</p>
+			<p><strong>Vagas:</strong> {{ object.people_confirmed }}/{{ object.maxpeople }}</p>
 		</div>
 	</div>
 </div>
 <div class="grid_5">
 	<div class="box">
 		<div class="header">
-			<img src="{{ STATIC_URL }}img/icons/packs/fugue/16x16/shadeless/blue-document.png" width="16" height="16">
-			<h3>Pessoas confirmadas</h3><span></span>
+			<img src="{{ STATIC_URL }}img/icons/packs/fugue/16x16/shadeless/chart-down.png" width="16" height="16">
+			<h3>Prévia</h3><span></span>
 		</div>
 		<div class="content">
 			<ul class="stats-list">
@@ -29,9 +33,6 @@
 				</li>
 				<li>
 				<a href="#">Atividades propostas <span>{{ object.activities.all.count }}</span></a>
-				</li>
-				<li>
-					<a href="#">Support Tickets <span>12</span></a>
 				</li>
 			</ul>
 		</div>
@@ -47,6 +48,7 @@
 			<table id="table-activities" class="table">
 				<thead>
 					<tr>
+						<th>Inscrição</th>
 						<th>Atividade</th>
 						<th>Data</th>
 						<th>Local</th>
@@ -59,6 +61,7 @@
 				<tbody>
 					{% for activity in object.activities.all %}
 					<tr>
+						<td><input type="checkbox" style="margin: 0px; padding: 0px; float: right;" /></td>
 						<td><strong><a href="{% url 'event' event.slug %}">{{ activity.name }}</a></strong></td>
 						<td>{{ activity.date }}</td>
 						<td>{{ activity.local }}</td>
@@ -70,6 +73,7 @@
 					{% endfor %}
 				</tbody>
 			</table>
+			<input type="submit" value="Realizar inscrição" style="float: right;"/>
 		</div> <!-- End of .content -->
 		<div class="clear"></div>
 	</div> <!-- End of .box -->
