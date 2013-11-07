@@ -45,35 +45,38 @@
 			<h3>Atividades</h3><span></span>
 		</div>
 		<div class="content">
-			<table id="table-activities" class="table">
-				<thead>
-					<tr>
-						<th>Inscrição</th>
-						<th>Atividade</th>
-						<th>Data</th>
-						<th>Local</th>
-						<th>Vagas</th>
-						<th>Carga Horária</th>
-						<th>Preço</th>
-						<th>Pontos</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for activity in object.activities.all %}
-					<tr>
-						<td><strong><i><font color='darkgreen'>Já inscrito</font></i></strong><input type="checkbox" style="margin: 0px; padding: 0px; float: right;" disabled/></td>
-						<td><strong><a href="{% url 'event' event.slug %}">{{ activity.name }}</a></strong></td>
-						<td>{{ activity.date }}</td>
-						<td>{{ activity.local }}</td>
-						<td>{{ activity.maxpeople }}</td>
-						<td>{{ activity.charge }}</td>
-						<td>R${{ activity.price }}</td>
-						<td>{{ activity.points }}</td>
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-			<input type="submit" value="Realizar inscrição" style="float: right;"/>
+			<form action="{% url 'enroll' event.slug %}" method="POST">
+				{% csrf_token %}
+				<table id="table-activities" class="table">
+					<thead>
+						<tr>
+							<th>Inscrição</th>
+							<th>Atividade</th>
+							<th>Data</th>
+							<th>Local</th>
+							<th>Vagas</th>
+							<th>Carga Horária</th>
+							<th>Preço</th>
+							<th>Pontos</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for activity in object.activities.all %}
+						<tr>
+							<td><!--<strong><i><font color='darkgreen'>Já inscrito</font></i></strong>--><input type="checkbox" name="activities" value="{{ activity.id }}" style="margin: 0px; padding: 0px; float: right;" /></td>
+							<td><strong><a href="{% url 'event' event.slug %}">{{ activity.name }}</a></strong></td>
+							<td>{{ activity.date }}</td>
+							<td>{{ activity.local }}</td>
+							<td>{{ activity.maxpeople }}</td>
+							<td>{{ activity.charge }}</td>
+							<td>R${{ activity.price }}</td>
+							<td>{{ activity.points }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<input type="submit" value="Realizar inscrição" style="float: right;"/>
+			</form>
 		</div> <!-- End of .content -->
 		<div class="clear"></div>
 	</div> <!-- End of .box -->

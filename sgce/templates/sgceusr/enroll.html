@@ -1,0 +1,139 @@
+{% extends 'sgceusr/base.html' %}
+{% block content %}
+<h2 class="grid_12"><a href="{% url 'event' event.slug %}">{{ event.name }}</a></h2>
+<div class="clean"></div>
+<div class="content no-padding">
+	<div class="grid_12">
+		<div class="box wizard" data-step="1">
+			<div class="header">
+				<img src="{{ STATIC_URL }}img/icons/packs/fugue/16x16/shadeless/tick.png" alt="" width="16"
+				height="16">
+				<h3>Inscrição</h3>
+				<span></span>
+			</div>
+			<div class="content">
+				<div class="steps">
+					<ul>
+						<li class="current">
+						<a href="#step_1"> <span>1</span>
+							<div>
+								<strong>Confirmação</strong>
+								<small>
+									Confirme sua seleção
+								</small>
+						</div> </a>
+						</li>
+						<li>
+						<a href="#step_2"> <span>2</span>
+							<div>
+								<strong>Information</strong>
+								<small>
+									Fill out our form
+								</small>
+						</div></a>
+						</li>
+					</ul>
+				</div>
+				<form action="{% url 'enroll' event.slug %}" method="POST">
+					{% csrf_token %}
+					<div class="wiz_page step_1">
+						<div class="wiz_sidebar grid_3">
+							<span>1</span>
+							<div>
+								<strong>Confirmação de atividades</strong>
+								<small>
+									Não é possível alterá-las
+								</small>
+							</div>
+							<p>
+							Confirme as atividades que você selecionou previamente para sua inscrição, não existem extornos em relação ao cancelamento de atividades.
+							</p>
+							<p>
+							<ul class="stats-list">
+								<li><a href="#">Preço total<span style="margin-right: 25px"><font color="darkred">R${{ total_price }}</font></span></a></li>
+								<li><a href="#">Pontos recebidos<span style="margin-right: 25px"><font color="green">{{ total_points }}</font></span></a></li>
+							</ul>
+							</p>
+						</div>
+						<div class="wiz_content grid_9">
+							<h3>Atividades selecionadas</h3>
+							{% csrf_token %}
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Atividade</th>
+										<th>Data</th>
+										<th>Local</th>
+										<th>Vagas</th>
+										<th>Carga Horária</th>
+										<th>Preço</th>
+										<th>Pontos</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for activity in activity_list %}
+									<tr>
+										<td><strong><a href="{% url 'event' event.slug %}">{{ activity.name }}</a></strong></td>
+										<td>{{ activity.date }}</td>
+										<td>{{ activity.local }}</td>
+										<td>{{ activity.maxpeople }}</td>
+										<td>{{ activity.charge }}</td>
+										<td>R${{ activity.price }}</td>
+										<td>{{ activity.points }}</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+							<br>
+						</div>
+					</div>
+					<div class="wiz_page step_2">
+						<div class="wiz_sidebar grid_3">
+							<span>2</span>
+							<div>
+								<strong>Lorem</strong>
+								<small>
+									Ipsum
+								</small>
+							</div>
+							<p>
+							Something else
+							</p>
+						</div>
+						<div class="wiz_content grid_9">
+							<h3>Database setup</h3>
+							<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+							<p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
+							<p>Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.</p>
+							<p>Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.</p>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="actions">
+				<div class="actions-left">
+					<button class="prev">
+						&laquo; Anterior
+					</button>
+				</div>
+				<div class="actions-right">
+					<button class="next">
+						Próxima &raquo;
+					</button>
+				</div>
+			</div> <!-- End of .content -->
+			<div class="clear"></div>
+		</div> <!-- End of .box -->
+	</div> <!-- End of .grid_12 -->
+</div>
+{% endblock %}
+{% block end-scripts %}
+<script defer>
+	$(window).load(function() {
+		$('#table-activities').dataTable({
+			"iDisplayLength": 50
+		});
+		$(window).resize();
+	});
+</script>
+{% endblock %}

@@ -1,11 +1,11 @@
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.http import Http404
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from sgce.models import Event, Activity
 
 def home(request):
-	return render_to_response('sgceusr/home.html', RequestContext(request))
+	return render(request, 'sgceusr/home.html')
 
 class EventList(ListView):
 	model = Event
@@ -19,3 +19,18 @@ class EventDetail(DetailView):
 class ActivityList(ListView):
 	model = Activity
 	template_name = 'sgceusr/activities.html'
+
+
+def enroll(request, slug):
+	if request.method == 'POST':
+		event = get_object_or_404(Event, slug=slug)
+		activities = request.POST.getlist('activities')
+		activity_list = get_list_or_404(Activity, id__in=activities)
+
+		total_price = sum(a.price for a in activity_list)
+		total_points = sum(a.points for a in activity_list)
+
+		context = {'event': event, 'activity_list': activity_list, 'total_price': total_price, 'total_points': total_points}
+
+		return render(request, 'sgceusr/enroll.html', context)
+	raise Http404
