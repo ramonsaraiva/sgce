@@ -18,13 +18,22 @@ class Activity(models.Model):
 	def __unicode__(self):
 		return self.name
 
+class Payment(models.Model):
+	price = models.DecimalField(verbose_name='Price', max_digits=10, decimal_places=2)
+	date = models.DateTimeField(verbose_name='Data')
+	paid = models.BooleanField(verbose_name='Pago', default=False)
+
+	def __unicode__(self):
+		return self.enrollment.person.name
+
 class Enrollment(models.Model):
 	person = models.ForeignKey('person.Person', verbose_name='Pessoa')
 	activities = models.ManyToManyField(Activity, verbose_name='Atividades', related_name='enrollments')
+	payment = models.OneToOneField(Payment, verbose_name='Pagamento', blank=True, null=True, related_name='enrollment')
 	date = models.DateTimeField(verbose_name='Data')
 
 	def __unicode__(self):
-		return self.id
+		return self.person.name
 
 class Event(models.Model):
 	name = models.CharField(verbose_name='Nome', max_length=32)
