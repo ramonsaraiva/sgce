@@ -45,7 +45,7 @@
 			<h3>Atividades</h3><span></span>
 		</div>
 		<div class="content">
-			<form action="{% url 'enroll' event.slug %}" method="POST">
+			<form action="{% url 'enroll' event.slug %}" method="GET">
 				{% csrf_token %}
 				<table id="table-activities" class="table">
 					<thead>

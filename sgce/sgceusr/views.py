@@ -3,6 +3,7 @@ from django.http import Http404
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from sgce.models import Event, Activity
+from sgceusr.forms import EnrollmentForm
 
 def home(request):
 	return render(request, 'sgceusr/home.html')
@@ -22,15 +23,14 @@ class ActivityList(ListView):
 
 
 def enroll(request, slug):
+	event = get_object_or_404(Event, slug=slug)
+	activities = request.GET.getlist('activities')
+	activity_list = get_list_or_404(Activity, id__in=activities)
+	total_price = sum(a.price for a in activity_list)
+	total_points = sum(a.points for a in activity_list)
+
 	if request.method == 'POST':
-		event = get_object_or_404(Event, slug=slug)
-		activities = request.POST.getlist('activities')
-		activity_list = get_list_or_404(Activity, id__in=activities)
+		a = 'a'
 
-		total_price = sum(a.price for a in activity_list)
-		total_points = sum(a.points for a in activity_list)
-
-		context = {'event': event, 'activity_list': activity_list, 'total_price': total_price, 'total_points': total_points}
-
-		return render(request, 'sgceusr/enroll.html', context)
-	raise Http404
+	context = {'event': event, 'activities': activity_list, 'total_price': total_price, 'total_points': total_points}
+	return render(request, 'sgceusr/enroll.html', context)
