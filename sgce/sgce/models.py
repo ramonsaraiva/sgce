@@ -31,6 +31,7 @@ class Enrollment(models.Model):
 	activities = models.ManyToManyField(Activity, verbose_name='Atividades', related_name='enrollments')
 	payment = models.OneToOneField(Payment, verbose_name='Pagamento', blank=True, null=True, related_name='enrollment')
 	date = models.DateTimeField(verbose_name='Data')
+	points = models.DecimalField(verbose_name='Pontos', max_digits=5, decimal_places=0)
 
 	def __unicode__(self):
 		return self.person.name

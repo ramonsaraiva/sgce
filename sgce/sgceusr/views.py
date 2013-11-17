@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
 from django.http import Http404
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
-from sgce.models import Event, Activity
+from sgce.models import Event, Activity, Enrollment, Payment
 from sgceusr.forms import EnrollmentForm
+from datetime import datetime
 
 def home(request):
 	return render(request, 'sgceusr/home.html')
@@ -24,13 +25,37 @@ class ActivityList(ListView):
 
 def enroll(request, slug):
 	event = get_object_or_404(Event, slug=slug)
+
+	if request.method == 'POST':
+		activities = request.POST.getlist('activities')
+		activity_list = get_list_or_404(Activity, id__in=activities)
+		total_price = sum(a.price for a in activity_list)
+		total_points = sum(a.points for a in activity_list)
+
+		enrollment = Enrollment()
+		enrollment.person = request.user
+		enrollment.date = datetime.now()
+		enrollment.points = total_points
+
+		enrollment.save()
+
+		payment = Payment()
+		payment.price = total_price
+		payment.date = datetime.now()
+		payment.paid = True
+		payment.save()
+
+		enrollment.activities = activity_list
+		enrollment.payment = payment
+
+		enrollment.save()
+
+		return redirect('events')
+
 	activities = request.GET.getlist('activities')
 	activity_list = get_list_or_404(Activity, id__in=activities)
 	total_price = sum(a.price for a in activity_list)
 	total_points = sum(a.points for a in activity_list)
-
-	if request.method == 'POST':
-		a = 'a'
 
 	context = {'event': event, 'activities': activity_list, 'total_price': total_price, 'total_points': total_points}
 	return render(request, 'sgceusr/enroll.html', context)

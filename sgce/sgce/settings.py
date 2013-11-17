@@ -125,4 +125,5 @@ LOGIN_REDIRECT_URL = '/'
 
 DILLA_USE_LOREM_IPSUM = True
 DILLA_APPS = ['sgce',]
+DILLA_EXCLUDE_MODELS = ['sgce.Enrollment', 'sgce.Payment']
 DILLA_SPAMLIBS = ['sgce.custom_spam']

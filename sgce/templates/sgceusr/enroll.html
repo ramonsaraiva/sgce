@@ -34,7 +34,7 @@
 						</li>
 					</ul>
 				</div>
-				<form action="{% url 'enroll' event.slug %}" method="POST">
+				<form action="" method="POST">
 					{% csrf_token %}
 					<div class="wiz_page step_1">
 						<div class="wiz_sidebar grid_3">
@@ -57,7 +57,6 @@
 						</div>
 						<div class="wiz_content grid_9">
 							<h3>Atividades selecionadas</h3>
-							{% csrf_token %}
 							<table class="table">
 								<thead>
 									<tr>
@@ -85,6 +84,9 @@
 								</tbody>
 							</table>
 							<br>
+							{% for activity in activities %}
+							<input type="hidden" name="activities" value="{{ activity.id }}"/>
+							{% endfor %}
 						</div>
 					</div>
 					<div class="wiz_page step_2">
