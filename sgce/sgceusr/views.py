@@ -57,7 +57,7 @@ def enroll(request, slug):
 		event.enrollments.add(enrollment)
 		event.save()
 
-		return redirect('events')
+		return redirect('home')
 
 	activities = request.GET.getlist('activities')
 	activity_list = get_list_or_404(Activity, id__in=activities)
