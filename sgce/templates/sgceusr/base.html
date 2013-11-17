@@ -16,12 +16,15 @@
 		</ul>
 		</li>
 		<li class="{% active_page request '^/sgceusr/events/' %}">
-		<a href="#">
+		<a href="{% url 'events' %}">
 			<img src="{{ STATIC_URL }}img/icons/25x25/dark/flag.png" width=25 height=25 alt="">
 			Eventos</a>
 		<ul>
 			<li class="{% active_page request '^/sgceusr/events/$' %}">
 			<a href="{% url 'events' %}">Lista de eventos</a>
+			</li>
+			<li class="{% active_page request '^/sgceusr/events/enrolled/$' %}">
+			<a href="{% url 'events-enrolled' %}">Meus eventos</a>
 			</li>
 		</ul>
 		</li>
@@ -32,6 +35,9 @@
 		<ul>
 			<li class="{% active_page request '^/sgceusr/activities/$' %}">
 			<a href="{% url 'activities' %}">Lista de atividades</a>
+			</li>
+			<li class="{% active_page request '^/sgceusr/activities/enrolled/$' %}">
+			<a href="{% url 'activities-enrolled' %}">Minhas atividades</a>
 			</li>
 		</ul>
 		</li>

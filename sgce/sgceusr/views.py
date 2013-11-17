@@ -19,6 +19,21 @@ class EventList(ListView):
 	queryset = Event.objects.order_by('date')
 	template_name = 'sgceusr/events.html'
 
+	def get_context_data(self, **kwargs):
+		context = super(EventList, self).get_context_data(**kwargs)
+		context['content_title'] = 'Eventos'
+		return context
+
+class MyEventList(EventList):
+	def get_queryset(self):
+		enrollments = Enrollment.objects.filter(person=self.request.user)
+		return Event.objects.filter(enrollments__in=enrollments).distinct().order_by('date')
+
+	def get_context_data(self, **kwargs):
+		context = super(MyEventList, self).get_context_data(**kwargs)
+		context['content_title'] = 'Meus eventos'
+		return context
+
 class EventDetail(DetailView):
 	model = Event
 	template_name = 'sgceusr/event.html'
@@ -28,6 +43,20 @@ class ActivityList(ListView):
 	queryset = Activity.objects.order_by('date')
 	template_name = 'sgceusr/activities.html'
 
+	def get_context_data(self, **kwargs):
+		context = super(ActivityList, self).get_context_data(**kwargs)
+		context['content_title'] = 'Atividades'
+		return context
+
+class MyActivityList(ActivityList):
+	def get_queryset(self):
+		enrollments = Enrollment.objects.filter(person=self.request.user)
+		return Activity.objects.filter(enrollments__in=enrollments).order_by('date')
+
+	def get_context_data(self, **kwargs):
+		context = super(MyActivityList, self).get_context_data(**kwargs)
+		context['content_title'] = 'Minhas atividades'
+		return context
 
 def enroll(request, slug):
 	event = get_object_or_404(Event, slug=slug)
