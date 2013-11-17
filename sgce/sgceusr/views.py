@@ -8,9 +8,10 @@ from datetime import datetime
 
 def home(request):
 	enrollments = Enrollment.objects.filter(person=request.user)
-	events = Event.objects.filter(enrollments__in=enrollments).distinct()
+	events = Event.objects.filter(enrollments__in=enrollments).distinct().order_by('date')
+	activities = Activity.objects.filter(enrollments__in=enrollments).order_by('date')
 
-	context = {'events': events}
+	context = {'events': events, 'activities': activities}
 	return render(request, 'sgceusr/home.html', context)
 
 class EventList(ListView):
