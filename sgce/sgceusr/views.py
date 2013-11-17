@@ -25,6 +25,7 @@ class EventDetail(DetailView):
 
 class ActivityList(ListView):
 	model = Activity
+	queryset = Activity.objects.order_by('date')
 	template_name = 'sgceusr/activities.html'
 
 
