@@ -7,7 +7,11 @@ from sgceusr.forms import EnrollmentForm
 from datetime import datetime
 
 def home(request):
-	return render(request, 'sgceusr/home.html')
+	enrollments = Enrollment.objects.filter(person=request.user)
+	events = Event.objects.filter(enrollments__in=enrollments).distinct()
+
+	context = {'events': events}
+	return render(request, 'sgceusr/home.html', context)
 
 class EventList(ListView):
 	model = Event
@@ -49,6 +53,9 @@ def enroll(request, slug):
 		enrollment.payment = payment
 
 		enrollment.save()
+
+		event.enrollments.add(enrollment)
+		event.save()
 
 		return redirect('events')
 

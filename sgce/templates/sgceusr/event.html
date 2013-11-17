@@ -1,4 +1,5 @@
 {% extends 'sgceusr/base.html' %}
+{% load sgceusr_extras %}
 {% block content %}
 <h2 class="grid_12">{{ object.name }}</h2>
 <div class="clean"></div>
@@ -63,7 +64,7 @@
 					<tbody>
 						{% for activity in object.activities.all %}
 						<tr>
-							<td><!--<strong><i><font color='darkgreen'>Já inscrito</font></i></strong>--><input type="checkbox" name="activities" value="{{ activity.id }}" style="margin: 0px; padding: 0px; float: right;" /></td>
+							<td>{% if user|enrolled_in_activity:activity %}<strong><i><font color='darkgreen'>Já inscrito</font></i></strong>{% endif %}<input type="checkbox" name="activities" value="{{ activity.id }}" style="margin: 0px; padding: 0px; float: right;" {% if user|enrolled_in_activity:activity %}disabled{% endif %}/></td>
 							<td><strong><a href="{% url 'event' event.slug %}">{{ activity.name }}</a></strong></td>
 							<td>{{ activity.date }}</td>
 							<td>{{ activity.local }}</td>
