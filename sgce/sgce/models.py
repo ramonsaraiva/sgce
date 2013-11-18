@@ -2,6 +2,7 @@
 
 from django.db import models
 from sgce.unislugify import unique_slugify
+from randomslugfield import RandomSlugField
 
 class Activity(models.Model):
 	name = models.CharField(verbose_name='Nome', max_length=32)
@@ -36,6 +37,10 @@ class Enrollment(models.Model):
 	def __unicode__(self):
 		return self.person.name
 
+class Voucher(models.Model):
+	key = RandomSlugField(length=5, unique=True)
+	used = models.BooleanField(verbose_name='Utilizado', default=False)
+
 class Event(models.Model):
 	name = models.CharField(verbose_name='Nome', max_length=32)
 	description = models.CharField(verbose_name='Descrição', max_length=256)
@@ -46,12 +51,19 @@ class Event(models.Model):
 	nvouchers = models.DecimalField(verbose_name='Vouchers', max_digits=5, decimal_places=0)
 	activities = models.ManyToManyField(Activity, verbose_name='Atividades', null=True, blank=True, related_name='event')
 	enrollments = models.ManyToManyField(Enrollment, verbose_name='Inscrições', null=True, blank=True, related_name='event')
+	vouchers = models.ManyToManyField(Voucher, verbose_name='Vouchers', null=True, blank=True, related_name='event')
 	slug = models.SlugField(max_length=100, blank=True, unique=True)
 
 	def save(self, *args, **kwargs):
 		if not self.slug:
 			unique_slugify(self, self.name)
+
 		super(Event, self).save(*args, **kwargs)
+
+		for i in range(self.nvouchers):
+			v = Voucher()
+			v.save()
+			self.vouchers.add(v)
 
 	def __unicode__(self):
 		return self.name

@@ -9,4 +9,3 @@ def enrolled_in_activity(user, activity):
 	if enrollments:
 		return True
 	return False
-
