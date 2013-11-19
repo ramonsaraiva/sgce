@@ -4,7 +4,7 @@
 <div class="clean"></div>
 <div class="content no-padding">
 	<div class="grid_12">
-		<p>{% if form.token.errors %}<font color="red" size="3"><strong>O voucher especificado é inválido, por favor, verifique o token digitado.</strong></font>{% endif %}</p>
+		{% if form.token.errors %}<p><font color="red" size="3"><strong>{{ form.token.errors }}</strong></font></p>{% endif %}
 		<div class="box wizard" data-step="1">
 			<div class="header">
 				<img src="{{ STATIC_URL }}img/icons/packs/fugue/16x16/shadeless/tick.png" alt="" width="16"

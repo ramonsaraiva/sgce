@@ -5,6 +5,7 @@ from django.views.generic.detail import DetailView
 from sgce.models import Event, Activity, Enrollment, Payment, Voucher
 from sgceusr.forms import EnrollmentForm
 from datetime import datetime
+from decimal import Decimal
 
 def home(request):
 	enrollments = Enrollment.objects.filter(person=request.user)
@@ -78,8 +79,9 @@ def enroll(request, slug):
 			if token:
 				voucher = Voucher.objects.get(token=token)
 				voucher.used = True
+				voucher.save()
 				# 20% off
-				total_price -= total_price * 0.2
+				total_price -= total_price * Decimal('0.2')
 
 			payment = Payment()
 

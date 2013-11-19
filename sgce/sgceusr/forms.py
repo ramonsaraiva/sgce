@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*
+
 from django import forms
 from sgce.models import Event
 import pdb
@@ -27,9 +29,9 @@ class EnrollmentForm(forms.Form):
 
 		try:
 			voucher = event.vouchers.get(token=data)
-			if voucher.used:
-				raise forms.ValidationError("Token em uso")
 		except:
-			raise forms.ValidationError("Token incorreto")
+			raise forms.ValidationError("Voucher inválido, verifique se o token foi digitado corretamente.")
+		if voucher.used:
+			raise forms.ValidationError("O voucher especificado já está em uso, verifique se o token foi digitado corretamente.")
 
 		return data
