@@ -8,17 +8,21 @@
 			<table id="table-events" class="table">
 				<thead>
 					<tr>
+						<th>Data do Pagamento</th>
+						<th>Total pago</th>
+						<th>Pontos recebidos</th>
 						<th>Evento</th>
 						<th>Atividades inscritas</th>
-						<th>Preço</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for payment in object_list %}
 					<tr>
+						<td>{{ payment.date }}</td>
+						<td>R${{ payment.price }}</td>
+						<td>{{ payment.enrollment.points }}</td>
 						<td><strong><a href="{% url 'event' payment.enrollment.event.all.0.slug %}">{{ payment.enrollment.event.all.0.name }}</a></strong></td>
 						<td>{{ payment.enrollment.activities.count }}</td>
-						<td>{{ payment.price }}</td>
 					</tr>
 					{% endfor %}
 				</tbody>
