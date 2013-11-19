@@ -106,3 +106,11 @@ def enroll(request, slug):
 
 	context = {'event': event, 'activities': activity_list, 'form': form}
 	return render(request, 'sgceusr/enroll.html', context)
+
+class PaymentList(ListView):
+	model = Payment
+	template_name = 'sgceusr/payments.html'
+
+	def get_queryset(self):
+		enrollments = Enrollment.objects.filter(person=self.request.user)
+		return Payment.objects.filter(enrollment__in=enrollments)

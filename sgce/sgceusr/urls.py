@@ -9,4 +9,5 @@ urlpatterns = patterns('',
 	url(r'^events/(?P<slug>[\w\-]+)/enroll$', 'sgceusr.views.enroll', name='enroll'),
 	url(r'^activities/$', views.ActivityList.as_view(), name='activities'),
 	url(r'^activities/enrolled/$', views.MyActivityList.as_view(), name='activities-enrolled'),
+	url(r'^payments/$', views.PaymentList.as_view(), name='payments'),
 )

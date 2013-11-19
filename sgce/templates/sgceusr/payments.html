@@ -1,0 +1,41 @@
+{% extends 'sgceusr/base.html' %}
+{% block content %}
+<h2 class="grid_12">Meus pagamentos</h2>
+<div class="clean"></div>
+<div class="grid_12">
+	<div class="box">
+		<div class="content">
+			<table id="table-events" class="table">
+				<thead>
+					<tr>
+						<th>Evento</th>
+						<th>Atividades inscritas</th>
+						<th>Preço</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for payment in object_list %}
+					<tr>
+						<td><strong><a href="{% url 'event' payment.enrollment.event.all.0.slug %}">{{ payment.enrollment.event.all.0.name }}</a></strong></td>
+						<td>{{ payment.enrollment.activities.count }}</td>
+						<td>{{ payment.price }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div> <!-- End of .content -->
+		<div class="clear"></div>
+	</div> <!-- End of .box -->
+</div> <!-- End of .grid_12 -->
+{% endblock %}
+{% block end-scripts %}
+<script defer>
+	$(window).load(function() {
+		$('#table-events').dataTable({
+			"iDisplayLength": 50,
+			"aaSorting": [],
+		});
+		$(window).resize();
+	});
+</script>
+{% endblock %}

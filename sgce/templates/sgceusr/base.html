@@ -6,13 +6,11 @@
 <div class="container_12">
 	<ul id="nav_main">
 		<li class="{% active_page request '^/sgceusr/$' %}">
-		<a href="#">
+		<a href="{% url 'home' %}">
 			<img src="{{ STATIC_URL }}img/icons/25x25/dark/blocks---images.png" width=25 height=25 alt="">
 			Principal</a>
 		<ul>
-			<li>
-			<a href="{% url 'home' %}">In&iacute;cio</a>
-			</li>
+			<li class="{% active_page request '^/sgceusr/$' %}"> <a href="{% url 'home' %}">In&iacute;cio</a> </li>
 		</ul>
 		</li>
 		<li class="{% active_page request '^/sgceusr/events/' %}">
@@ -41,16 +39,13 @@
 			</li>
 		</ul>
 		</li>
-		<li class="{% active_page request '^/sgceusr/activities/' %}">
-		<a href="{% url 'activities' %}">
+		<li class="{% active_page request '^/sgceusr/payments/' %}">
+		<a href="{% url 'payments' %}">
 			<img src="{{ STATIC_URL }}img/icons/25x25/dark/piggy-bank.png" width=25 height=25 alt="">
 			Pagamentos</a>
 		<ul>
-			<li class="{% active_page request '^/sgceusr/activities/$' %}">
-			<a href="{% url 'activities' %}">Lista de atividades</a>
-			</li>
-			<li class="{% active_page request '^/sgceusr/activities/enrolled/$' %}">
-			<a href="{% url 'activities-enrolled' %}">Minhas atividades</a>
+			<li class="{% active_page request '^/sgceusr/payments/$' %}">
+			<a href="{% url 'payments' %}">Meus pagamentos</a>
 			</li>
 		</ul>
 		</li>

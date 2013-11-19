@@ -3,6 +3,7 @@
 <h2 class="grid_12">Início</h2>
 <div class="clean"></div>
 <div class="grid_12">
+	{{ messages }}
 	{% if messages %}
 		{% for message in messages %}
 		<div class="alert success"> <span class="icon"></span>{{ message }} </div>
