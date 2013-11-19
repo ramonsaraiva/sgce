@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404, redirec
 from django.http import Http404
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
-from sgce.models import Event, Activity, Enrollment, Payment
+from sgce.models import Event, Activity, Enrollment, Payment, Voucher
 from sgceusr.forms import EnrollmentForm
 from datetime import datetime
 
@@ -67,28 +67,33 @@ def enroll(request, slug):
 
 		form = EnrollmentForm(event.id, activity_list, request.POST)
 		if form.is_valid():
-			a = 1
+			enrollment = Enrollment()
+			enrollment.person = request.user
+			enrollment.date = datetime.now()
+			enrollment.points = form.fields['total_points'].initial
+			enrollment.save()
 
-		"""enrollment = Enrollment()
-		enrollment.person = request.user
-		enrollment.date = datetime.now()
-		enrollment.points = total_points
+			total_price = form.fields['total_price'].initial
+			token = form.cleaned_data['token']
+			if token:
+				voucher = Voucher.objects.get(token=token)
+				voucher.used = True
+				# 20% off
+				total_price -= total_price * 0.2
 
-		enrollment.save()
+			payment = Payment()
 
-		payment = Payment()
-		payment.price = total_price
-		payment.date = datetime.now()
-		payment.paid = True
-		payment.save()
+			payment.price = total_price
+			payment.date = datetime.now()
+			payment.paid = True
+			payment.save()
 
-		enrollment.activities = activity_list
-		enrollment.payment = payment
+			enrollment.activities = activity_list
+			enrollment.payment = payment
+			enrollment.save()
 
-		enrollment.save()
-
-		event.enrollments.add(enrollment)
-		event.save()"""
+			event.enrollments.add(enrollment)
+			event.save()
 	elif request.method == 'GET':
 		activities = request.GET.getlist('activities')
 		activity_list = get_list_or_404(Activity, id__in=activities)

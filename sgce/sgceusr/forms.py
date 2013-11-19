@@ -26,7 +26,9 @@ class EnrollmentForm(forms.Form):
 			return data
 
 		try:
-			event.vouchers.get(token=data)
+			voucher = event.vouchers.get(token=data)
+			if voucher.used:
+				raise forms.ValidationError("Token em uso")
 		except:
 			raise forms.ValidationError("Token incorreto")
 
