@@ -4,7 +4,10 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404, redirec
 from django.http import Http404
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView
 from django.contrib import messages
+from person.models import Person
+from person.forms import PersonForm
 from sgce.models import Event, Activity, Enrollment, Payment, Voucher
 from sgceusr.forms import EnrollmentForm
 from datetime import datetime
@@ -16,6 +19,15 @@ def home(request):
 
 	context = {'events': events, 'activities': activities}
 	return render(request, 'sgceusr/home.html', context)
+
+class AccountUpdate(UpdateView):
+	model = Person
+	form_class = PersonForm
+	success_url = '/sgceusr/account/'
+	success_message = 'Informações atualizadas com sucesso.'
+
+	def get_object(self, queryset=None):
+		return self.request.user
 
 class EventList(ListView):
 	model = Event

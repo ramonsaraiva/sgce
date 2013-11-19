@@ -49,6 +49,16 @@
 			</li>
 		</ul>
 		</li>
+		<li class="{% active_page request '^/sgceusr/account/' %}">
+		<a href="{% url 'account' %}">
+			<img src="{{ STATIC_URL }}img/icons/25x25/dark/user-2.png" width=25 height=25 alt="">
+			Minha conta</a>
+		<ul>
+			<li class="{% active_page request '^/sgceusr/account/$' %}">
+			<a href="{% url 'account' %}">Editar informações</a>
+			</li>
+		</ul>
+		</li>
 	</ul>
 </div>
 </nav>

@@ -3,6 +3,7 @@ from sgceusr import views
 
 urlpatterns = patterns('',
 	url(r'^$', 'sgceusr.views.home', name='home'),
+	url(r'^account/$', views.AccountUpdate.as_view(), name='account'),
 	url(r'^events/$', views.EventList.as_view(), name='events'),
 	url(r'^events/enrolled/$', views.MyEventList.as_view(), name='events-enrolled'),
 	url(r'^events/(?P<slug>[\w\-]+)/$', views.EventDetail.as_view(), name='event'),

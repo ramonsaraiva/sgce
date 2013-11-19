@@ -9,7 +9,7 @@ class PersonForm(forms.ModelForm):
 	class Meta:
 		model = Person
 		widgets = {'password': forms.PasswordInput}
-		exclude = ['stype', 'last_login', 'date_joined']
+		exclude = ['is_superuser', 'groups', 'user_permissions', 'first_name', 'last_name', 'is_staff', 'is_active', 'stype', 'last_login', 'date_joined', ]
 
 	def save(self):
 		person = super(PersonForm, self).save(commit=False)

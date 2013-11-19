@@ -1,0 +1,35 @@
+{% extends 'sgceusr/base.html' %}
+{% block content %}
+<h2 class="grid_12">Editar informações da minha conta</h2>
+<div class="clean"></div>
+<div class="grid_12">
+	{% if messages %}
+		{% for message in messages %}
+		<div class="alert success"> <span class="icon"></span>{{ message }} </div>
+		{% endfor %}
+	{% endif %}
+	<div class="box">
+		<div class="content">
+			<br/>
+			<form method="post">
+				{% csrf_token %}
+				{{ form }}
+				<input type="submit" value="Salvar as informações" />
+			</form>
+		</div> <!-- End of .content -->
+		<div class="clear"></div>
+	</div> <!-- End of .box -->
+</div> <!-- End of .grid_12 -->
+{% endblock %}
+{% block end-scripts %}
+<script defer>
+	$(window).load(function() {
+		$('#table-activities').dataTable({
+			"iDisplayLength": 50,
+			"aaSorting": [],
+		});
+		$(window).resize();
+	});
+</script>
+{% endblock %}
+
