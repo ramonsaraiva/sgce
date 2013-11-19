@@ -3,6 +3,11 @@
 <h2 class="grid_12">Início</h2>
 <div class="clean"></div>
 <div class="grid_12">
+	{% if messages %}
+		{% for message in messages %}
+		<div class="alert success"> <span class="icon"></span>{{ message }} </div>
+		{% endfor %}
+	{% endif %}
 	<div class="box">
 		<div class="header">
 			<img src="{{ STATIC_URL }}img/icons/packs/fugue/16x16/shadeless/flag-blue.png" width="16" height="16">

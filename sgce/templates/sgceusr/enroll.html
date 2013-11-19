@@ -52,8 +52,9 @@
 							</p>
 							<p>
 							<ul class="stats-list">
-								<li><a href="#">Preço total<span style="margin-right: 25px"><font color="darkred">R${{ form.total_price.field.initial }}</font></span></a></li>
-								<li><a href="#">Pontos recebidos<span style="margin-right: 25px"><font color="green">{{ form.total_points.field.initial }}</font></span></a></li>
+								<li><a href="#">Preço total<span style="margin-right: 25px"><font color="darkred">R${{ form.total_price.field.initial|floatformat:"2" }}</font></span></a></li>
+								<li><a href="#">Preço total utilizando Voucher<span style="margin-right: 25px"><font color="darkgreen">R${{ form.off_price.field.initial|floatformat:"2" }}</font></span></a></li>
+								<li><a href="#">Pontos recebidos<span style="margin-right: 25px"><font color="darkblue">{{ form.total_points.field.initial }}</font></span></a></li>
 							</ul>
 							</p>
 						</div>
@@ -126,7 +127,7 @@
 								<p></p>
 							</div>
 							<h3>Voucher</h3>
-							<p>Caso você possua um voucher do evento, por favor, digite o token no campo abaixo para obter seu desconto de <strong>20%</strong> no pagamento.<br>Utilizando um voucher, o preço total será reduzido de <font color='darkred'>R${{ total_price }}</font> para <font color='green'>R${{ total_price }}</font></p>
+							<p>Caso você possua um voucher do evento, por favor, digite o token no campo abaixo para obter seu desconto de <strong>20%</strong> no pagamento.<br>Utilizando um voucher, o preço total será reduzido de <font color='darkred'>R${{ form.total_price.field.initial|floatformat:"2" }}</font> para <font color='green'>R${{ form.off_price.field.initial|floatformat:"2" }}</font></p>
 							<div class="_25">
 								<p>
 									Token {{ form.token }}

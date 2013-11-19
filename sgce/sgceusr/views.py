@@ -1,11 +1,13 @@
+# -*- coding: utf-8 -*
+
 from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
 from django.http import Http404
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
+from django.contrib import messages
 from sgce.models import Event, Activity, Enrollment, Payment, Voucher
 from sgceusr.forms import EnrollmentForm
 from datetime import datetime
-from decimal import Decimal
 
 def home(request):
 	enrollments = Enrollment.objects.filter(person=request.user)
@@ -74,18 +76,16 @@ def enroll(request, slug):
 			enrollment.points = form.fields['total_points'].initial
 			enrollment.save()
 
-			total_price = form.fields['total_price'].initial
+			payment = Payment()
+			payment.price = form.fields['total_price'].initial
+
 			token = form.cleaned_data['token']
 			if token:
 				voucher = Voucher.objects.get(token=token)
 				voucher.used = True
 				voucher.save()
-				# 20% off
-				total_price -= total_price * Decimal('0.2')
+				payment.price = form.fields['off_price'].initial
 
-			payment = Payment()
-
-			payment.price = total_price
 			payment.date = datetime.now()
 			payment.paid = True
 			payment.save()
@@ -96,6 +96,9 @@ def enroll(request, slug):
 
 			event.enrollments.add(enrollment)
 			event.save()
+
+			messages.success(request, 'Sua inscrição no evento foi realizada com sucesso!')
+			return redirect('home')
 	elif request.method == 'GET':
 		activities = request.GET.getlist('activities')
 		activity_list = get_list_or_404(Activity, id__in=activities)

@@ -41,6 +41,19 @@
 			</li>
 		</ul>
 		</li>
+		<li class="{% active_page request '^/sgceusr/activities/' %}">
+		<a href="{% url 'activities' %}">
+			<img src="{{ STATIC_URL }}img/icons/25x25/dark/piggy-bank.png" width=25 height=25 alt="">
+			Pagamentos</a>
+		<ul>
+			<li class="{% active_page request '^/sgceusr/activities/$' %}">
+			<a href="{% url 'activities' %}">Lista de atividades</a>
+			</li>
+			<li class="{% active_page request '^/sgceusr/activities/enrolled/$' %}">
+			<a href="{% url 'activities-enrolled' %}">Minhas atividades</a>
+			</li>
+		</ul>
+		</li>
 	</ul>
 </div>
 </nav>
@@ -50,10 +63,13 @@
 <h2>Minhas informa&ccedil;&otilde;es</h2>
 <ul class="stats-list">
 	<li>
-	<a href="#">Eventos inscritos <span>{{ user.nof_events_enrolled }}</span></a>
+	<a href="{% url 'events-enrolled' %}">Eventos inscritos <span>{{ user.nof_events_enrolled }}</span></a>
 	</li>
 	<li>
-	<a href="#">Atividades inscritas<span>{{ user.nof_activities_enrolled }}</span></a>
+	<a href="{% url 'activities-enrolled' %}">Atividades inscritas<span>{{ user.nof_activities_enrolled }}</span></a>
+	</li>
+	<li>
+	<a href="#">Pagamentos efetuados<span>{{ user.nof_enrollments }}</span></a>
 	</li>
 </ul>
 

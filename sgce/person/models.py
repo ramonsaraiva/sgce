@@ -45,3 +45,6 @@ class Person(AbstractUser):
 		for enrollment in Enrollment.objects.filter(person=self).annotate(act_count=Count('activities__id', distinct=True)):
 			act += enrollment.act_count
 		return act
+
+	def nof_enrollments(self):
+		return Enrollment.objects.filter(person=self).count()

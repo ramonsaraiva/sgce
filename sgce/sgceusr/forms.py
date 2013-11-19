@@ -2,11 +2,12 @@
 
 from django import forms
 from sgce.models import Event
-import pdb
+from decimal import Decimal
 
 class EnrollmentForm(forms.Form):
 	event_id = forms.CharField(required=False)
 	total_price = forms.DecimalField(required=False)
+	off_price = forms.DecimalField(required=False)
 	total_points = forms.DecimalField(required=False)
 	token = forms.CharField(max_length=5, required=False)
 	cc_number = forms.CharField(required=False)
@@ -18,6 +19,7 @@ class EnrollmentForm(forms.Form):
 		self.fields['event_id'].initial = event_id
 		self.fields['activities'] = forms.MultipleChoiceField(choices=[ (a.id, a.name) for a in activities])
 		self.fields['total_price'].initial = sum(a.price for a in activities)
+		self.fields['off_price'].initial = self.fields['total_price'].initial - self.fields['total_price'].initial * Decimal('0.2')
 		self.fields['total_points'].initial = sum(a.points for a in activities)
 
 	def clean_token(self):
