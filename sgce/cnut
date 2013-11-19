@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [ "$1" == "--clear" ]; then
-	mysql -u root -pamokvein -e "use sgce; delete from sgce_event_enrollments;delete from sgce_event_activities;delete from sgce_event;delete from sgce_enrollment_activities;delete from sgce_enrollment;delete from sgce_activity; delete from sgce_payment;"
+	mysql -u root -pamokvein -e "use sgce;delete from sgce_event_enrollments;delete from sgce_event_activities;delete from sgce_event_vouchers;delete from sgce_voucher;delete from sgce_event;delete from sgce_enrollment_activities;delete from sgce_enrollment;delete from sgce_activity; delete from sgce_payment;"
 
 elif [ "$1" == "--delete" ]; then
-	mysql -u root -pamokvein -e "use sgce; drop table sgce_event_enrollments;drop table sgce_event_activities;drop table sgce_event;drop table sgce_enrollment_activities;drop table sgce_enrollment;drop table sgce_activity;drop table sgce_payment;"
+	mysql -u root -pamokvein -e "use sgce;drop table sgce_event_enrollments;drop table sgce_event_activities;drop table sgce_event_vouchers;drop_table sgce_voucher;drop table sgce_event;drop table sgce_enrollment_activities;drop table sgce_enrollment;drop table sgce_activity;drop table sgce_payment;"
 fi

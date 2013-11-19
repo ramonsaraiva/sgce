@@ -64,10 +64,12 @@ def enroll(request, slug):
 	if request.method == 'POST':
 		activities = request.POST.getlist('activities')
 		activity_list = get_list_or_404(Activity, id__in=activities)
-		total_price = sum(a.price for a in activity_list)
-		total_points = sum(a.points for a in activity_list)
 
-		enrollment = Enrollment()
+		form = EnrollmentForm(event.id, activity_list, request.POST)
+		if form.is_valid():
+			a = 1
+
+		"""enrollment = Enrollment()
 		enrollment.person = request.user
 		enrollment.date = datetime.now()
 		enrollment.points = total_points
@@ -86,14 +88,11 @@ def enroll(request, slug):
 		enrollment.save()
 
 		event.enrollments.add(enrollment)
-		event.save()
+		event.save()"""
+	elif request.method == 'GET':
+		activities = request.GET.getlist('activities')
+		activity_list = get_list_or_404(Activity, id__in=activities)
+		form = EnrollmentForm(event.id, activity_list, request.GET)
 
-		return redirect('home')
-
-	activities = request.GET.getlist('activities')
-	activity_list = get_list_or_404(Activity, id__in=activities)
-	total_price = sum(a.price for a in activity_list)
-	total_points = sum(a.points for a in activity_list)
-
-	context = {'event': event, 'activities': activity_list, 'total_price': total_price, 'total_points': total_points}
+	context = {'event': event, 'activities': activity_list, 'form': form}
 	return render(request, 'sgceusr/enroll.html', context)

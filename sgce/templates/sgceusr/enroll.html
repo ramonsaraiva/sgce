@@ -4,6 +4,7 @@
 <div class="clean"></div>
 <div class="content no-padding">
 	<div class="grid_12">
+		<p>{% if form.token.errors %}<font color="red" size="3"><strong>O voucher especificado é inválido, por favor, verifique o token digitado.</strong></font>{% endif %}</p>
 		<div class="box wizard" data-step="1">
 			<div class="header">
 				<img src="{{ STATIC_URL }}img/icons/packs/fugue/16x16/shadeless/tick.png" alt="" width="16"
@@ -46,12 +47,13 @@
 								</small>
 							</div>
 							<p>
-							Confirme as atividades que você selecionou previamente para sua inscrição, não existem extornos em relação ao cancelamento de atividades.
+								<br />
+								Confirme as atividades que você selecionou previamente para sua inscrição, não existem extornos em relação ao cancelamento de atividades.
 							</p>
 							<p>
 							<ul class="stats-list">
-								<li><a href="#">Preço total<span style="margin-right: 25px"><font color="darkred">R${{ total_price }}</font></span></a></li>
-								<li><a href="#">Pontos recebidos<span style="margin-right: 25px"><font color="green">{{ total_points }}</font></span></a></li>
+								<li><a href="#">Preço total<span style="margin-right: 25px"><font color="darkred">R${{ form.total_price.field.initial }}</font></span></a></li>
+								<li><a href="#">Pontos recebidos<span style="margin-right: 25px"><font color="green">{{ form.total_points.field.initial }}</font></span></a></li>
 							</ul>
 							</p>
 						</div>
@@ -99,27 +101,39 @@
 								</small>
 							</div>
 							<p>
-
+								<br />
+								Após a inscrição, caso utilizado um voucher, o mesmo será invalidado, ou seja, só poderá ser utilizado um voucher por inscrição, independente do número de atividades selecionadas.
 							</p>
 						</div>
 						<div class="wiz_content grid_9">
 							<h3>Informações do Cartão</h3>
 							<div class="_50">
 								<p>
-									Número <input type="text" />
+									Número {{ form.cc_number }}
 								</p>
 							</div>
 							<div class="_25">
 								<p>
-									Validade <input id="date" type="date" data-date-relative="now">
+									Validade {{ form.cc_date }}
 								</p>
 							</div>
 							<div class="_25">
 								<p>
-									Código Verificador <input type="text" />
+									Código Verificador {{ form.cc_cod }}
 								</p>
+							</div>
+							<div class="_100">
+								<p></p>
 							</div>
 							<h3>Voucher</h3>
+							<p>Caso você possua um voucher do evento, por favor, digite o token no campo abaixo para obter seu desconto de <strong>20%</strong> no pagamento.<br>Utilizando um voucher, o preço total será reduzido de <font color='darkred'>R${{ total_price }}</font> para <font color='green'>R${{ total_price }}</font></p>
+							<div class="_25">
+								<p>
+									Token {{ form.token }}
+								</p>
+							</div>
+							<div class="_75">
+							</div>
 							<div class="_100">	
 								<p><input type="submit" value="Efetuar inscrição" /></p>
 							</div>

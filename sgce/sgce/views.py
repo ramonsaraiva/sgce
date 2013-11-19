@@ -1,5 +1,4 @@
-from django.shortcuts import redirect, render_to_response
-from django.template import RequestContext
+from django.shortcuts import redirect
 
 def switch(request):
 	if request.user.is_authenticated():
@@ -7,4 +6,4 @@ def switch(request):
 			return redirect('/sgceusr/')
 		elif request.user.stype == 'R' or request.user.stype == 'O':
 			return redirect('/sgceman/')
-	return render_to_response('switch.html', RequestContext(request))
+	return redirect('/person/login/')

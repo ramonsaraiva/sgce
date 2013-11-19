@@ -38,7 +38,7 @@ class Enrollment(models.Model):
 		return self.person.name
 
 class Voucher(models.Model):
-	key = RandomSlugField(length=5, unique=True)
+	token = RandomSlugField(length=5, unique=True)
 	used = models.BooleanField(verbose_name='Utilizado', default=False)
 
 class Event(models.Model):
