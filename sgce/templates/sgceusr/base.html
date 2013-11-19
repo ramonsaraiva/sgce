@@ -64,7 +64,13 @@
 	<a href="{% url 'activities-enrolled' %}">Atividades inscritas<span>{{ user.nof_activities_enrolled }}</span></a>
 	</li>
 	<li>
-	<a href="#">Pagamentos efetuados<span>{{ user.nof_enrollments }}</span></a>
+	<a href="{% url 'payments' %}">Pagamentos efetuados<span>{{ user.nof_enrollments }}</span></a>
+	</li>
+	<li>
+	<a href="#">Total investido<span>{{ user.money_spent }}</span></a>
+	</li>
+	<li>
+	<a href="#">Pontos arrecadados<span>{{ user.points_earned }}</span></a>
 	</li>
 </ul>
 

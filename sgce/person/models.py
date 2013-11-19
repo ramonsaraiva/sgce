@@ -1,7 +1,7 @@
 from django.db import models
-from django.db.models import Count
+from django.db.models import Count, Sum
 from django.contrib.auth.models import AbstractUser
-from sgce.models import Enrollment, Event
+from sgce.models import Enrollment, Event, Payment
 
 class Person(AbstractUser):
 	MALE = 'M'
@@ -48,3 +48,9 @@ class Person(AbstractUser):
 
 	def nof_enrollments(self):
 		return Enrollment.objects.filter(person=self).count()
+
+	def money_spent(self):
+		return Payment.objects.filter(enrollment__person=self).aggregate(Sum('price'))['price__sum']
+
+	def points_earned(self):
+		return Enrollment.objects.filter(person=self).aggregate(Sum('points'))['points__sum']
