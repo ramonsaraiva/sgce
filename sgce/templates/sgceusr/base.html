@@ -77,10 +77,10 @@
 	<a href="{% url 'payments' %}">Pagamentos efetuados<span>{{ user.nof_enrollments }}</span></a>
 	</li>
 	<li>
-	<a href="#">Total investido<span>{{ user.money_spent }}</span></a>
+	<a href="#">Total investido<span>{{ user.money_spent|default_if_none:"0" }}</span></a>
 	</li>
 	<li>
-	<a href="#">Pontos arrecadados<span>{{ user.points_earned }}</span></a>
+	<a href="#">Pontos arrecadados<span>{{ user.points_earned|default_if_none:"0" }}</span></a>
 	</li>
 </ul>
 
