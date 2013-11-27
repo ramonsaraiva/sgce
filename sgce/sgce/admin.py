@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import Group
-from sgce.models import Event, Activity, Enrollment, Voucher
+from sgce.models import Event, Activity, Enrollment, Payment, Voucher
 
 admin.site.unregister(Group)
 admin.site.unregister(Site)
@@ -15,4 +15,5 @@ class EnrollmentModelAdmin(admin.ModelAdmin):
 admin.site.register(Event, EventModelAdmin)
 admin.site.register(Activity)
 admin.site.register(Enrollment, EnrollmentModelAdmin)
+admin.site.register(Payment)
 admin.site.register(Voucher)

@@ -46,7 +46,7 @@ class Enrollment(models.Model):
 		verbose_name_plural = 'Inscrições'
 
 	def __unicode__(self):
-		return self.person.name
+		return self.event.all()[0].name + " - " + self.person.name
 
 class Voucher(models.Model):
 	token = RandomSlugField(length=5, unique=True)
