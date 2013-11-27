@@ -16,13 +16,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for payment in object_list %}
+					{% for enrollment in object_list %}
 					<tr>
-						<td>{{ payment.date }}</td>
-						<td>R${{ payment.price }}</td>
-						<td>{{ payment.enrollment.points }}</td>
-						<td><strong><a href="{% url 'event' payment.enrollment.event.all.0.slug %}">{{ payment.enrollment.event.all.0.name }}</a></strong></td>
-						<td>{{ payment.enrollment.activities.count }}</td>
+						<td>{{ enrollment.date }}</td>
+						<td>R${{ enrollment.payment.price }}</td>
+						<td>{{ enrollment.points }}</td>
+						<td><strong><a href="{% url 'event' enrollment.event.all.0.slug %}">{{ enrollment.event.all.0.name }}</a></strong></td>
+						<td>{{ enrollment.activities.count }}</td>
 					</tr>
 					{% endfor %}
 				</tbody>
