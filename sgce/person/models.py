@@ -33,6 +33,10 @@ class Person(AbstractUser):
 	USERNAME_FIELD = 'username'
 	REQUIRED_FIELDS = ['name', 'email', 'cpf', 'nationality', 'sex', 'scholarity', 'birth']
 
+	class Meta:
+		verbose_name = 'Pessoa'
+		verbose_name_plural = 'Pessoas'
+
 	def __unicode__(self):
 		return self.username
 
